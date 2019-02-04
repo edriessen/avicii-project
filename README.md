@@ -1,6 +1,6 @@
 # Sentiment plot of music albums
 
-This readme only contains the technical details on how to run the project. If you are interested in the reason why I set up the project, visit [avicii.edriessen.com](http://avicii.edriessen.com).
+This readme only contains the technical details on how to run the project. If you are interested in the reason why I set up the project, visit [http://www.edriessen.com/avicii/](http://www.edriessen.com/avicii/).
 
 # Analysing your favourite artist
 

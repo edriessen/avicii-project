@@ -20,20 +20,14 @@ def get_song_sentiment(folder):
             song_name = file.split('.')[0]
             song = open(folder+'/'+file, 'r')
             song_parts = song_name.split('_')
-            song_year = song_parts[0]
-            song_index = song_parts[1]
-            if len(song_index) == 1:
-                song_index = '0'+str(song_index)
-            song_album = song_parts[2]
-            song_title = song_parts[3]
+            song_album = song_parts[0]
+            song_title = song_parts[1]
             song_text = song.read()
             song_sentiment = get_sentiment_from_text(song_text)
             song_magnitude = song_sentiment.magnitude
             song_score = song_sentiment.score
             song = {
                 'title': song_title,
-                'year': song_year,
-                'album_index': song_index,
                 'album': song_album,
                 'score': song_score,
                 'magnitude': song_magnitude

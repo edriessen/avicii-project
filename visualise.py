@@ -8,27 +8,14 @@ def disable_grid_form_axis(axis):
     axis.get_yaxis().set_visible(False)
 
 
-def scatter_plot_from_dataframe(dataframe, color_filter, magnitude_amplifier):
+def scatter_plot_from_dataframe(dataframe, color_filter, magnitude_amplifier, album_colors={}):
     fig, (ax1) = plt.subplots(frameon=False)
     # ax1.grid(color='#cccccc', axis='y')
     grid_color = '#cccccc'
     colors = []
     if color_filter=='album':
         for value in dataframe['album']:
-            #jack johnson
-            if value == 'BF':
-                colors.append('#DBE2EB')
-            elif value == 'onandon':
-                colors.append('#009B94')
-            elif value == 'inbetweendreams':
-                colors.append('#EFCE10')
-            # avicii
-            elif value == 'true':
-                colors.append('#0E4691')
-            elif value == 'stories':
-                colors.append('#DC5463')
-            else:
-                colors.append('#EABE67')
+            colors.append(album_colors[value])
     elif color_filter=='sentiment':
         for value in dataframe['score']:
             if value < 0:
@@ -62,10 +49,13 @@ def scatter_plot_from_dataframe(dataframe, color_filter, magnitude_amplifier):
     disable_grid_form_axis(ax1)
     plt.show()
 
-
 def convert_xlsx_into_dataframe(xlsx_file):
     xls = pd.ExcelFile(xlsx_file)
     df = xls.parse(xls.sheet_names[0])
     return df
 
-scatter_plot_from_dataframe(convert_xlsx_into_dataframe('output/song_sentiment_jj_first_three_discography.xlsx'), 'album', 28)
+scatter_plot_from_dataframe(convert_xlsx_into_dataframe('output/song_sentiment_avicii_discography.xlsx'), 'album', 28, {
+    'true': '#0E4691',
+    'stories': '#DC5463',
+    'avicii': '#EABE67',
+})

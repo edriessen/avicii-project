@@ -1,6 +1,5 @@
 # Sentiment plot of music albums
 
-This readme only contains the technical details on how to run the project. If you are interested in the reason why I set up the project, visit [avicii.edriessen.com](http://avicii.edriessen.com).
 
 # Analysing your favourite artist
 
@@ -18,7 +17,6 @@ To run an analysis, you'll need a connection to the Google Cloud Natural Languag
 - Array of dicts (the songs). Use the `get_song_sentiment('songs/avicii')` function to generate this list. Refer to the correct path location of your songs. In my example, the path is `songs/avicii`.
 - Name extension of Excel file. The function will save the file to the `output/` folder. The file name will be `song_sentiment_your_extension.xlsx`.
 
-Af ull example looks like this:
 
 `save_array_of_dicts_to_excel(get_song_sentiment('songs/avicii'), 'avicii_discography' )`
 
@@ -26,9 +24,6 @@ Af ull example looks like this:
 
 You can visualise the data from the `visualise.py` file. You can call the `scatter_plot_from_datafrome` function. It takes three arguments:
 
-- data frame. Use `convert_xlsx_into_dataframe('output/song_sentiment_avicii_discography.xlsx')` and refer to your file of choice.
-- colour type. Use `'sentiment'` for red, grey and green colours. Use `'album'` for custom album colours (see paragraph below).
-- magnitude magnification. The number of pixels a circle increases in size per magnitude point.
 
 Here's a full example:
 
@@ -36,7 +31,11 @@ Here's a full example:
 
 ### Using custom album colours.
 
+<<<<<<< HEAD
 When you set the colour type to `'album'`, you'll need to pass the album colors into the `scatter_plot_from_dataframe` function. Set the album colours in a dictionary where the key is the album name and the value is the HEX colour. Here's the dictionary I used for Avicii's album:
+=======
+When you set the colour type to `'album'`, you'll need to modify a part of the `visualise.py` file. Look for the part that says `if color_filter=='album'`. Modify the values inside the if statement to match your album names and colours of choice. Here's the example I used for Avicii's albums:
+>>>>>>> d4753aaab78dc3ee78638eedcfbb4a3224aa8fba
 
 ```
 {

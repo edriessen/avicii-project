@@ -31,11 +31,8 @@ Here's a full example:
 
 ### Using custom album colours.
 
-<<<<<<< HEAD
+
 When you set the colour type to `'album'`, you'll need to pass the album colors into the `scatter_plot_from_dataframe` function. Set the album colours in a dictionary where the key is the album name and the value is the HEX colour. Here's the dictionary I used for Avicii's album:
-=======
-When you set the colour type to `'album'`, you'll need to modify a part of the `visualise.py` file. Look for the part that says `if color_filter=='album'`. Modify the values inside the if statement to match your album names and colours of choice. Here's the example I used for Avicii's albums:
->>>>>>> d4753aaab78dc3ee78638eedcfbb4a3224aa8fba
 
 ```
 {

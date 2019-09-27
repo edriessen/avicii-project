@@ -1,4 +1,4 @@
-# Sentiment plot of music albums
+# Visualisation of Sentiment in Python
 
 This readme only contains the technical details on how to run the project. If you are interested in the reason why I set up the project, visit [http://www.edriessen.com/avicii/](http://www.edriessen.com/avicii/).
 
@@ -56,5 +56,6 @@ Making your plot ready for print is easy. Simply save it as an `.eps` file. Open
 
 The project is currently in a rough state. Things I'll be working on are:
 
+- Store data in csv instead of excel.
 - Updating the project code to make it easier to use.
 - Make it easier to prepare a plot for print.

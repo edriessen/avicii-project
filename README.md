@@ -1,61 +1,82 @@
-# Visualisation of Sentiment in Python
+# Visualisation of the sentiment of music lyrics in Python
 
-This readme only contains the technical details on how to run the project. If you are interested in the reason why I set up the project, visit [http://www.edriessen.com/avicii/](http://www.edriessen.com/avicii/).
+You can use this project to visualise sentiment data of music lyrics. It only includes the technical details. [Read the origin stor]([http://www.edriessen.com/avicii/)  to find out why I created it.
 
-# Analysing your favourite artist
+# Create a datviz of the lyrics your favourite artist
 
-Plotting the sentiment of the songs of one of your favourite artists takes two steps:
+Good to see that you want to visualise the lyrics of one of your favourite artists (or just want to know more about this repository). The process is split into two parts:
 
 1. Analyse the song texts.
 2. Plot the sentiment data.
 
-Let's dig in.
+I'll use Avicii's posthumous album TIM as an example in this readme. Let's dig in.
 
 # 1. Analyse the songtexts
 
-To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `YYYY_albumname_songindex_songtitle.txt`. For the song Wake Me Up by Avicii, this would be: `2013_true_1_wakemeup.txt`. When you have the files ready, you can use `analyse.py` to run the sentiment analysis. You can call `save_array_of_dicts_to_excel()`. The function takes two arguments:
+To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `songindex_albumname_songindex_songtitle.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1_tim_peace-of-mind.txt`. I store the textfiles of the albums I generate inside a `songs` folder in my project. 
 
-- Array of dicts (the songs). Use the `get_song_sentiment('songs/avicii')` function to generate this list. Refer to the correct path location of your songs. In my example, the path is `songs/avicii`.
+When you have the files ready, you can use `analyse.py` to run the sentiment analysis. In this file, you call `save_array_of_dicts_to_excel()`. The function takes two arguments:
+
+- Array of dicts (the songs). Use the `get_song_sentiment('songs/avicii_tim')` function to generate this list. Refer to the correct path location of your songs. In my example, the text files are located in `songs/avicii_tim`.
 - Name extension of Excel file. The function will save the file to the `output/` folder. The file name will be `song_sentiment_your_extension.xlsx`.
 
 A full example looks like this:
 
-`save_array_of_dicts_to_excel(get_song_sentiment('songs/avicii'), 'avicii_discography' )`
+`save_array_of_dicts_to_excel(get_song_sentiment('songs/avicii_tim'), 'avicii_tim' )`
 
-# 2. Plot the sentiment data
+# 2. Visualise the sentiment data
 
-You can visualise the data from the `visualise.py` file. You can call the `scatter_plot_from_datafrome` function. It takes three arguments:
+You can visualise the data with the functions in `visualise.py` . There are two types of visualisations:
 
-- Data frame. Use `convert_xlsx_into_dataframe('output/song_sentiment_avicii_discography.xlsx')` and refer to your file of choice.
-- Colour type. Use `'sentiment'` for red, grey and green colours. Use `'album'` for custom album colours (see paragraph below).
-- Magnitude magnification. The number of pixels a circle increases in size per magnitude point.
+- Scatterplot - `scatter_plot_from_dataframe`
+- Line plot - `plot_path_from_dataframe`
 
-Here's a full example:
+They both have a unique way of visualising the data. I'll give a basic and advanced example of both. 
 
-`scatter_plot_from_dataframe(convert_xlsx_into_dataframe('output/song_sentiment_jj_first_three_discography.xlsx'), 'sentiment', 28)`
-
-
-### Using custom album colours.
-
-
-When you set the colour type to `'album'`, you'll need to pass the album colors into the `scatter_plot_from_dataframe` function. Set the album colours in a dictionary where the key is the album name and the value is the HEX colour. Here's the dictionary I used for Avicii's albums:
+## The scatterplot of your favourite music
 
 ```
-{
-    'true': '#0E4691',
-    'stories': '#DC5463',
-    'avicii': '#EABE67',
-}
+scatter_plot_from_dataframe(
+    dataframe=tim_df,
+    magnitude_amplifier=28,
+)
 ```
 
-# Preparing a plot for print
+//sample image
 
-Making your plot ready for print is easy. Simply save it as an `.eps` file. Open it in your editor of choice and remove all the unwanted elements (e.g. the graph elements and white background). After that, save it in your format of choice.
+```
+scatter_plot_from_dataframe(
+    dataframe=tim_df,
+    magnitude_amplifier=0,
+    album_color='purple',
+    annotate='index',
+    disable_grid=True,
+)
+```
 
+## The line path of your favourite music
+
+This one feels magical to me. Using the paths from Matplotlib, you can draw an organic looking line. It's drawn from one song to the next based on the index on the album. 
+
+```
+plot_path_from_dataframe(
+    dataframe=tim_df
+)
+```
+
+//sample image
+
+```
+plot_path_from_dataframe(
+    dataframe=tim_df,
+    show_dots=True,
+    disable_grids=False,
+    line_type='straight',
+)
+
+```
 # To do
 
 The project is currently in a rough state. Things I'll be working on are:
 
 - Store data in csv instead of excel.
-- Updating the project code to make it easier to use.
-- Make it easier to prepare a plot for print.

@@ -102,8 +102,8 @@ And again the result:
 
 If you are interested in the why of this repository, read my stories about the origin:
 
-- [The Avicii Project]([http://www.edriessen.com/avicii/) 
-- [Analysing Avicii TIM]([http://www.edriessen.com/2019/06/15/visualising-the-emotion-of-aviciis-new-album-tim/) 
+- [The Avicii Project](http://www.edriessen.com/avicii/) 
+- [Analysing Avicii TIM](http://www.edriessen.com/2019/06/15/visualising-the-emotion-of-aviciis-new-album-tim/) 
 
 # To do
 

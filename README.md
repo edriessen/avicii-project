@@ -1,4 +1,4 @@
-# Visualisation of the sentiment of music lyrics in Python
+# The Avicii project: a visualisation of the emotion of music lyrics in Python
 
 You can use this project to visualise sentiment data of music lyrics. [Read the origin story]([http://www.edriessen.com/avicii/) to find out why I created it.
 

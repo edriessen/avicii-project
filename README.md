@@ -13,7 +13,7 @@ I'll use Avicii's posthumous album TIM as an example in this readme. Let's dig i
 
 # 1. Analyse the songtexts
 
-To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `songindex_albumname_songtitle.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1_tim_peace-of-mind.txt`. I store the text files of the albums I generate inside a `songs` folder in my project. 
+To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `songindex-albumname-songtitle.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace_of_mind.txt`. I store the text files of the albums I generate inside a `songs` folder in my project. 
 
 When you have the files ready, you can use `analyse.py` to run the sentiment analysis. From this file, you call `save_array_of_dicts_to_excel()`. The function takes two arguments:
 

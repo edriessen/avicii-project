@@ -1,7 +1,5 @@
-requests
 pandas
 xlsxwriter
 matplotlib
-bs4
-html2text
 googleapiclient
+google-cloud-language

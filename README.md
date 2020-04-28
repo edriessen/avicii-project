@@ -13,7 +13,9 @@ I'll use Avicii's posthumous album TIM as an example in this readme. Let's dig i
 
 # 1. Analyse the songtexts
 
-To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `songindex-albumname-songtitle.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace_of_mind.txt`. I store the text files of the albums I generate inside a `songs` folder in my project. 
+To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `songindex-albumname-songtitle.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace_of_mind.txt`. I store the text files of the albums I generate inside a `songs` folder in my project.
+
+You can copy and paste the lyrics manually, or you can scrape for the lyrics using the `lyrics.py` file. To use the script, you have to make an api key on Genius, and then enter the song titles, artist, and album as appropriate. You will need to create the appropriate folder under the `songs` folder (for example, for Lady Gaga, you will need to create a `Lady_Gaga` folder: `songs/Lady_Gaga`. The script will generate the text files and put them in the folder.
 
 When you have the files ready, you can use `analyse.py` to run the sentiment analysis. From this file, you call `save_array_of_dicts_to_excel()`. The function takes two arguments:
 
@@ -79,7 +81,7 @@ plot_path_from_dataframe(
 )
 ```
 
-And the result is: 
+And the result is:
 
 ![Avicii Time Path Basic](sample_dataviz/avicii_path_basic.png)
 
@@ -100,7 +102,10 @@ And again the result:
 
 # Story
 
-If you are interested in the why of this repository, read my story about the origin: [The Avicii Project](http://www.sentimentshirt.com/stories/honoring-avicii/).
+If you are interested in the why of this repository, read my stories about the origin:
+
+- [The Avicii Project](http://www.edriessen.com/avicii/)
+- [Analysing Avicii TIM](http://www.edriessen.com/2019/06/15/visualising-the-emotion-of-aviciis-new-album-tim/)
 
 # To do
 

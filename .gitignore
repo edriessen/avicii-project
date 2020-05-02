@@ -6,5 +6,7 @@ output/*
 songs/*
 visuals/*
 prints/*
+venv/*
+gifs/*
 run_local.py
 visualise-*.py

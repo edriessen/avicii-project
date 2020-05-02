@@ -8,7 +8,7 @@ SCOPES = ['https://www.googleapis.com/auth/cloud-language']
 SERVICE_ACCOUNT_FILE = 'credentials.json'
 credentials = service_account.Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-print(credentials)
+
 client = language.LanguageServiceClient(
     credentials=credentials
 )

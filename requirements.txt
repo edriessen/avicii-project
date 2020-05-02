@@ -2,4 +2,6 @@ pandas
 xlsxwriter
 matplotlib
 googleapiclient
+imageio
 google-cloud-language
+xlrd

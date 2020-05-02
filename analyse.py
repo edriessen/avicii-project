@@ -59,29 +59,20 @@ def save_array_of_dicts_to_excel(array_of_dicts, file_name):
     workbook = xlsxwriter.Workbook('output/song_sentiment_'+file_name+'.xlsx')
     worksheet = workbook.add_worksheet()
     songs = array_of_dicts
-    print(songs)
     row = 0
     col = 0
     for index, key in enumerate(array_of_dicts[0]):
-        print(index, key)
         worksheet.write(row, col + index, key)
 
     for song in songs:
-        print(song)
         row += 1
         for index, key in enumerate(song):
-            print(index, song[key])
             worksheet.write(row, col + index, song[key])
 
     workbook.close()
 
+def analyse_files_and_store_in_excel(folder_path, file_name):
+    save_array_of_dicts_to_excel(get_song_sentiment(folder_path), file_name)
 
-# save_array_of_dicts_to_excel(get_song_sentiment('songs/avicii'), 'avicii_discography' )
-# save_array_of_dicts_to_excel(get_song_sentiment('songs/lemaitre'), 'lemaitre_chapterone' )
-# save_array_of_dicts_to_excel(get_song_sentiment('songs/anouk'), 'anouk' )
-save_array_of_dicts_to_excel(get_song_sentiment('songs/brandon flowers'), 'brandonflowers_thedesiredeffect' )
-
-# save_array_of_dicts_to_excel(get_song_sentiment('songs/the beatles'), 'thebeatles_sgtpepperslonelyheartsclubbandsgtpepperslonelyheartsclubband' )
-# save_array_of_dicts_to_excel(get_sentiment_single_song_from_file('songs/brandon flowers/thedesiredeffect_dreamscometrue.txt'), 'thedesiredeffect_dreamscometrue')
 
 

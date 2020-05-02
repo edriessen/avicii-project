@@ -1,16 +1,22 @@
-import lyricsgenius
+import lyricsgenius, json, io, re
+
+
+with open('credentials-genius.json') as f:
+  data = json.load(f)
+
+access_key = data["access-key"]
 
 # generate an api key and paste it
 # https://genius.com/api-clients
-genius = lyricsgenius.Genius("api-key-here")
+genius = lyricsgenius.Genius(access_key)
 
 def save_lyrics(songs, artist_name, album_name):
-    for i in range(len(songs
-    )):
+    for i in range(len(songs )):
         song_title = songs[i]
         song = genius.search_song(song_title, artist_name)
         lyrics = song.lyrics
-        with open('songs/{}/{}_{}_{}.txt'.format('_'.join(artist_name.split(' ')), i+1, album_name, '-'.join(''.join(song_title.split('\'')).split(' '))), 'w') as f:
+        lyrics = re.sub(r"\[.+\]\n", '', lyrics)
+        with io.open('songs/{}/{}-{}-{}.txt'.format(artist_name, i+1, album_name, song_title), 'w', encoding='utf-8') as f:
             f.writelines(lyrics.split('\\n'))
 
 

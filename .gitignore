@@ -1,4 +1,5 @@
 credentials.json
+credentials-genius.json
 .gitattributes
 __pycache__
 .idea
@@ -6,5 +7,7 @@ output/*
 songs/*
 visuals/*
 prints/*
+venv/*
 run_local.py
 visualise-*.py
+

@@ -5,3 +5,4 @@ googleapiclient
 imageio
 google-cloud-language
 xlrd
+lyricsgenius

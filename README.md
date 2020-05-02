@@ -15,9 +15,18 @@ Let's dig in.
 
 # 1. Analyse the songtexts
 
-To run an analysis, you'll need a connection to the Google Cloud Natural Language API. Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. After that, you'll need a `.txt` file for each song that you want to analyse. Format each song file this way: `song index-album name-song title.txt`. For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace of mind.txt`. I store the text files of the albums I generate inside a `songs` folder in my project. 
+To run an analysis, you'll need a connection to the Google Cloud Natural Language API. 
+Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. 
+After that, you'll need a `.txt` file for each song that you want to analyse. 
+I use https://www.azlyrics.com to get my lyrics.
 
-When you have the files ready, you can use `analyse_files_and_store_in_excel.py` to run the sentiment analysis and store the results in an Excel sheet. The function takes two arguments:
+Format each song file this way: `song index-album name-song title.txt`. 
+For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace of mind.txt`. 
+I store the text files of the albums I generate inside a `songs` folder in my project. 
+
+When you have the files ready, you can use `analyse_files_and_store_in_excel.py` to run the sentiment analysis and store the results in an Excel sheet. 
+
+The function takes two arguments:
 
 - path to song files, e.g. `songs/avicii_tim`.
 - name extension of Excel file. The file is called `song_sentiment_extension.xlsx`, e.g. `song_sentiment_avicii_tim.xslx`. 
@@ -25,6 +34,24 @@ When you have the files ready, you can use `analyse_files_and_store_in_excel.py`
 A full example looks like this:
 
 `analyse_files_and_store_in_excel('songs/avicii_tim', 'avicii_tim')`
+
+### Scrape lyrics automatically from Genius.com
+You have the option to scrape for the lyrics using the `lyrics.py` file. 
+To use the script, you have to generate an access key on https://genius.com/api-clients.
+Store the access key in a json file called `credentials-genius.json` with this format:
+
+```
+{
+  "access-key": "your access key here"
+}
+```
+
+After that, enter the song titles, artist, and album as appropriate in `lyrics.py`. 
+You will need to create the appropriate folder under the songs folder (for example, for Lady Gaga, you will need to create a `Lady Gaga` folder: `songs/Lady Gaga`. 
+The script will generate the text files and put them in the folder.
+
+_Small changes in the lyrics can impact the visual.
+So be sure to check the lyrics when you get them automatically._
 
 # 2. Visualise the sentiment data
 

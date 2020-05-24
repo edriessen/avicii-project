@@ -22,23 +22,15 @@ def save_lyrics(songs, artist_name, album_name):
 
 if __name__ == '__main__':
     songs = [
-        "I Forgot That You Existed",
-        "Cruel Summer",
-        'Lover',
-        "The Man",
-        "The Archer",
-        "I Think He Knows",
-        "Miss Americana & the Heartbreak Prince",
-        "Paper Rings",
-        "Cornelia Street",
-        "Death By a Thousand Cuts",
-        "London Boy",
-        "Soon You’ll Get Better",
-        "False God",
-        "You Need to Calm Down",
-        "Afterglow",
-        "Me!",
-        "It’s Nice to Have a Friend",
-        "Daylight",
+        "the reaper",
+        'family',
+        'see the way',
+        "ps I hope you're happy",
+        "push my luck",
+        "takeaway",
+        "Call You Mine",
+        "Do You Mean",
+        "kills you slowly",
+        "who do you love",
     ]
-    save_lyrics(songs, 'Taylor Swift', 'Lover')
+    save_lyrics(songs, 'The Chainsmokers', 'World War Joy')

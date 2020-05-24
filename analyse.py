@@ -1,7 +1,9 @@
 from connect import client
 from google.cloud.language import enums
 from google.cloud.language import types
-import os, xlsxwriter
+import pandas as pd
+import os
+
 
 def get_sentiment_from_text(text):
     text = u''+text
@@ -52,27 +54,20 @@ def get_sentiment_single_song_from_file(file):
                 'score': line_score,
                 'magnitude': line_magnitude
             })
-    return (lines_with_sentiment)
+    return lines_with_sentiment
 
 
-def save_array_of_dicts_to_excel(array_of_dicts, file_name):
-    workbook = xlsxwriter.Workbook('output/song_sentiment_'+file_name+'.xlsx')
-    worksheet = workbook.add_worksheet()
-    songs = array_of_dicts
-    row = 0
-    col = 0
-    for index, key in enumerate(array_of_dicts[0]):
-        worksheet.write(row, col + index, key)
-
-    for song in songs:
-        row += 1
-        for index, key in enumerate(song):
-            worksheet.write(row, col + index, song[key])
-
-    workbook.close()
-
-def analyse_files_and_store_in_excel(folder_path, file_name):
-    save_array_of_dicts_to_excel(get_song_sentiment(folder_path), file_name)
+def save_list_to_csv_with_name(list, file_name):
+    df = pd.DataFrame(list)
+    df.to_csv('output/' + file_name + '.csv', index=False)
 
 
+def analyse_files_and_store_in_csv(folder_path, file_name):
+    save_list_to_csv_with_name(get_song_sentiment(folder_path), file_name)
+
+
+if __name__ == '__main__':
+    path_to_songs = 'songs/avicii_tim'
+    csv_file_name = 'avicii tim test'
+    analyse_files_and_store_in_csv(path_to_songs, csv_file_name)
 

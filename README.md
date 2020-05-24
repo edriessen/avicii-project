@@ -24,16 +24,16 @@ Format each song file this way: `song index-album name-song title.txt`.
 For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace of mind.txt`. 
 I store the text files of the albums I generate inside a `songs` folder in my project. 
 
-When you have the files ready, you can use `analyse_files_and_store_in_excel.py` to run the sentiment analysis and store the results in an Excel sheet. 
+When you have the files ready, you can use `analyse_files_and_store_in_csv` from `analyse.py` to run the sentiment analysis and store the results in a csv file. 
 
 The function takes two arguments:
 
-- path to song files, e.g. `songs/avicii_tim`.
-- name extension of Excel file. The file is called `song_sentiment_extension.xlsx`, e.g. `song_sentiment_avicii_tim.xslx`. 
+- path to song files, e.g. `songs/avicii tim`.
+- name of the csv file that will be stored in the output filder, e.g. `avicii tim`. 
 
 A full example looks like this:
 
-`analyse_files_and_store_in_excel('songs/avicii_tim', 'avicii_tim')`
+`analyse_files_and_store_in_csv('songs/avicii tim', 'avicii tim')`
 
 ### Scrape lyrics automatically from Genius.com
 You have the option to scrape for the lyrics using the `lyrics.py` file. 
@@ -60,10 +60,10 @@ You can visualise the data with the functions in `visualise.py` . There are two 
 - Scatter plot - `scatter_plot_from_dataframe`
 - Line plot - `plot_path_from_dataframe`
 
-You'll have to transform the generated sheet into a dataframe first. You can do so by using the `convert_xlsx_into_dataframe` function from `visualise.py`:
+You'll have to transform the generated sheet into a dataframe first. You can do so using the standard Pandas `read_csv` function:
 
 ```
-df = convert_xlsx_into_dataframe('output/song_sentiment_avicii_tim.xlsx')
+df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
 ```
 _You could also visualise the results of the analysis directly, without saving them into a file. But by doing so, you will call the Google API every time you run the visualisation. By storing the results into a file, you greatly reduce the amount of API calls you have to make._
 
@@ -150,6 +150,6 @@ If you are interested in the why of this repository, read my story about the ori
 
 # To do
 
-The project is currently in a rough state. Things I'll be working on are:
+Things I'll be working on are:
 
-- Store data in csv instead of excel.
+_Nothing. Feel free to contact me with requests._

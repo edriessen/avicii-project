@@ -1,9 +1,9 @@
-from visualise import scatter_plot_from_dataframe, plot_path_from_dataframe, convert_xlsx_into_dataframe
-from analyse import analyse_files_and_store_in_excel
+from visualise import scatter_plot_from_dataframe, plot_path_from_dataframe
+from analyse import analyse_files_and_store_in_csv
+import pandas as pd
 
-analyse_files_and_store_in_excel('songs/avicii_tim', 'avicii_tim')
-
-df = convert_xlsx_into_dataframe('output/song_sentiment_avicii_tim.xlsx')
+analyse_files_and_store_in_csv('songs/avicii tim', 'avicii tim')
+df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
 
 scatter_plot_from_dataframe(
     dataframe=df,

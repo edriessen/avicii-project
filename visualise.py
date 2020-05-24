@@ -1,4 +1,3 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.path import Path
@@ -129,7 +128,6 @@ def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', 
         for i, txt in enumerate(dataframe['title']):
             ax.annotate(str(i + 1), (dataframe['score'][i] + 0.02, dataframe['magnitude'][i]), size=6, va='center', ha='center')
 
-
     patch = mpatches.PathPatch(path, facecolor='none', lw=2, edgecolor=line_color)
     ax.add_patch(patch)
 
@@ -144,12 +142,4 @@ def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', 
         ax.axis('off')
 
     plt.show()
-
-
-def convert_xlsx_into_dataframe(xlsx_file):
-    xls = pd.ExcelFile(xlsx_file)
-    df = xls.parse(xls.sheet_names[0])
-    df = df.sort_values(by='index')
-    df = df.reset_index()
-    return df
 

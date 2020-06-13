@@ -68,6 +68,6 @@ def analyse_files_and_store_in_csv(folder_path, file_name):
 
 if __name__ == '__main__':
     path_to_songs = 'songs/avicii_tim'
-    csv_file_name = 'avicii tim test'
+    csv_file_name = 'avicii tim'
     analyse_files_and_store_in_csv(path_to_songs, csv_file_name)
 

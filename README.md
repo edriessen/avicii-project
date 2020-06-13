@@ -63,7 +63,7 @@ You can visualise the data with the functions in `visualise.py` . There are two 
 You'll have to transform the generated sheet into a dataframe first. You can do so using the standard Pandas `read_csv` function:
 
 ```
-df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
+df = pd.read_csv('output/avicii tim.csv').sort_values(by='index').reset_index()
 ```
 _You could also visualise the results of the analysis directly, without saving them into a file. But by doing so, you will call the Google API every time you run the visualisation. By storing the results into a file, you greatly reduce the amount of API calls you have to make._
 

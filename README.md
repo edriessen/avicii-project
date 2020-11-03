@@ -1,6 +1,6 @@
 # The Avicii project: a visualisation of the emotion of music lyrics in Python
 
-You can use this project to visualise sentiment data of music lyrics. [Read the origin story](http://www.sentimentshirt.com/stories/honoring-avicii/) to find out why I created it.
+You can use this project to visualise sentiment data of music lyrics. [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created it.
 
 # Create a dataviz of the lyrics your favourite artist
 
@@ -146,7 +146,7 @@ And again the result:
 
 # Story
 
-If you are interested in the why of this repository, read my story about the origin: [The Avicii Project](http://www.sentimentshirt.com/stories/honoring-avicii/).
+If you are interested in the why of this repository, read my story about the origin: [The Avicii Project](http://www.edriessen.com/projects/the-avicii-project/).
 
 # To do
 

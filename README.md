@@ -1,13 +1,20 @@
-# The Avicii project: a visualisation of the emotion of music lyrics in Python
+# The Avicii project: visualising the sentiment of music lyrics in Python
 
-You can use this project to visualise sentiment data of music lyrics. [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created it.
+You can use this project to analyse music lyrics (text) for sentiment using Google Natural Language API.
+It also allows you to visualise the results in a unique way.
+I personally use the visuals to make my own personal music t-shirts.
+Here's an example of me being happy with my very own dataviz t-shirt.
+
+![me being happy with my t-shirt](sample_dataviz/erik_driessen_avicii_tshirt.jpg)
+
+ [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 
 # Create a dataviz of the lyrics your favourite artist
 
-Good to see that you want to visualise the lyrics of one of your favourite artists. The process is split into two parts:
+Good to see that you want to give my repository a try. The process is split into two parts:
 
 1. Analyse the song texts.
-2. Plot the sentiment data.
+2. Visualise the sentiment data.
 
 I'll use Avicii's posthumous album TIM as an example in this readme. 
 You can see an example setup in `run-example.py`. 
@@ -20,16 +27,16 @@ Set up a project in the Google Cloud console and add your `credentials.json` to 
 After that, you'll need a `.txt` file for each song that you want to analyse. 
 I use https://www.azlyrics.com to get my lyrics.
 
-Format each song file this way: `song index-album name-song title.txt`. 
-For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tip-peace of mind.txt`. 
-I store the text files of the albums I generate inside a `songs` folder in my project. 
+Format each `.txt` file like this: `song index-album name-song title.txt`. 
+
+For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tim-peace of mind.txt`. 
+Store the text files of an albums inside the `songs` folder in my project. 
 
 When you have the files ready, you can use `analyse_files_and_store_in_csv` from `analyse.py` to run the sentiment analysis and store the results in a csv file. 
-
 The function takes two arguments:
 
 - path to song files, e.g. `songs/avicii tim`.
-- name of the csv file that will be stored in the output filder, e.g. `avicii tim`. 
+- name of the csv file that will be stored in the output folder, e.g. `avicii tim`. 
 
 A full example looks like this:
 
@@ -55,21 +62,25 @@ So be sure to check the lyrics when you get them automatically._
 
 # 2. Visualise the sentiment data
 
-You can visualise the data with the functions in `visualise.py` . There are two types of visualisations:
+You can visualise the data with the functions in `visualise.py` . 
+There are two types of visualisations:
 
-- Scatter plot - `scatter_plot_from_dataframe`
-- Line plot - `plot_path_from_dataframe`
+2.1 Scatter plot - `scatter_plot_from_dataframe`
+2.2 Line plot - `plot_path_from_dataframe`
+2.3 Edge Path
 
-You'll have to transform the generated sheet into a dataframe first. You can do so using the standard Pandas `read_csv` function:
+You'll have to transform the generated sheet into a dataframe first. 
+You can do so using the standard Pandas `read_csv` function:
 
 ```
-df = pd.read_csv('output/avicii tim.csv').sort_values(by='index').reset_index()
+tim_df = pd.read_csv('output/avicii tim.csv').sort_values(by='index').reset_index()
 ```
-_You could also visualise the results of the analysis directly, without saving them into a file. But by doing so, you will call the Google API every time you run the visualisation. By storing the results into a file, you greatly reduce the amount of API calls you have to make._
 
-## The scatterplot of your favourite music
+## 2.1 The scatterplot of your favourite music
 
-Use the `scatter_plot_from_dataframe` function to create a scatter plot. You only have to pass 1 value: a dataframe:
+Use the `scatter_plot_from_dataframe` function to create a scatter plot. 
+It gives you an readable overview of the sentiment analysis' results. 
+You only have to pass 1 value (a dataframe):
 
 ```
 scatter_plot_from_dataframe(
@@ -104,9 +115,12 @@ Here's another example of the resulting dataviz from this function:
 ![Avicii Time Scatter custom](sample_dataviz/avicii_scatter_custom.png)
 
 
-## The line path of your favourite music
+## 2.2 The line path of your favourite music
 
-This one feels magical to me. Using the patches option from Matplotlib, you can draw an organic looking line. It's drawn from one song to the next based on the index on the album.  Use the `path_plot_from_dataframe` function to create the line. You only have to pass a dataframe.
+This one feels magical to me. 
+Using the patches option from Matplotlib, you can draw an organic looking line. 
+It's drawn from one song to the next based on the index on the album.  Use the `path_plot_from_dataframe` function to create the line. 
+Again, you only have to pass a dataframe.
 
 ```
 plot_path_from_dataframe(
@@ -118,7 +132,12 @@ And the result is:
 
 ![Avicii Time Path Basic](sample_dataviz/avicii_path_basic.png)
 
-Also this function has some extra options. I've used these during testing to see if lines were drawn correctly. I decided to keep them in so you can get an understanding of how the drawing works. Here's an example of the function with all it's extra options set:
+Wow, that is some nice abstract dataviz right?! :)
+
+Also this function has some extra options. 
+I've used these during testing to see if lines were drawn correctly. 
+I decided to keep them in so you can get an understanding of how the drawing works. 
+Here's an example of the function with all it's extra options set:
 
 ```
 plot_path_from_dataframe(
@@ -144,9 +163,50 @@ And again the result:
 
 ![Avicii Time Path Custom](sample_dataviz/avicii_path_custom.png)
 
-# Story
+# 2.3 Custom Edge Paths
 
-If you are interested in the why of this repository, read my story about the origin: [The Avicii Project](http://www.edriessen.com/projects/the-avicii-project/).
+I have included an option to draw a different kind of path. 
+As discussed, the path is normally drawn based on the order of the songs on an album. 
+But if you want, you can change it to an edge shape. 
+This draws a line across the outermost points in the data set. 
+
+Here's an example of the data of Avicii's TIM: 
+
+![Avicii Edge Path Straight](sample_dataviz/avicii_edge_path_straight.png)
+
+And the version with a curved path:
+
+![Avicii Edge Path Curved](sample_dataviz/avicii_edge_path_curved.png)
+
+Technically, it works like this:
+
+- The script finds the data point with lowest score in the dataframe. 
+If there are multiple, it selects the one with the highest magnitude.
+- Next, it goes looking for the next data point with a higher score and higher magnitude. 
+If there aren't any, it picks the nearest point with a higher score.
+- After that, it keeps on looking for data points with a higher score and a max difference of 1.1 in magnitude. 
+Again, if there aren't any matches, it picks the nearest point with a higher score.
+- When there are no values with a higher scores left, it flips it search. Looking for lower scores and lower magnitudes.
+This last check picks up all the remaining data points for the path.
+
+When the edge path order is defined, it adds a copy of the first row of the dataframe as the last row. 
+This closes the path into a full loop.
+
+To use this edge path option, you have to filter the data frame. 
+You can pass a `start_at` parameter, to have the path start at a point of choosing. 
+
+```python
+from custom_path import sort_df_by_starting_point
+
+df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
+
+df_filtered = sort_df_by_starting_point(
+  df=df,
+  start_at='bad-reputation'
+)
+```
+
+I've used this edge path to make myself a Gorillaz album t-shirt. Read the story here: [Gorillaz T-Shirt Story](http://www.edriessen.com/2020/11/28/gorillaz-gorillaz-and-a-new-dataviz-t-shirt/).
 
 # To do
 

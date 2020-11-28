@@ -1,4 +1,5 @@
 import lyricsgenius, json, io, re
+from time import sleep
 
 
 with open('credentials-genius.json') as f:
@@ -16,21 +17,30 @@ def save_lyrics(songs, artist_name, album_name):
         song = genius.search_song(song_title, artist_name)
         lyrics = song.lyrics
         lyrics = re.sub(r"\[.+\]\n", '', lyrics)
-        with io.open('songs/{}/{}-{}-{}.txt'.format(artist_name, i+1, album_name, song_title), 'w', encoding='utf-8') as f:
+        correction = 4
+        with io.open('songs/{}/{}-{}-{}.txt'.format(artist_name, i+1+correction, album_name, song_title), 'w', encoding='utf-8') as f:
             f.writelines(lyrics.split('\\n'))
+        sleep(1)
 
 
 if __name__ == '__main__':
     songs = [
-        "the reaper",
-        'family',
-        'see the way',
-        "ps I hope you're happy",
-        "push my luck",
-        "takeaway",
-        "Call You Mine",
-        "Do You Mean",
-        "kills you slowly",
-        "who do you love",
+        # "The Power Of Equality",
+        # 'if i have to ask',
+        # 'breaking the girl',
+        # 'funky monks',
+        'suck my kiss',
+        'I could have lied',
+        'mellowship slinky in b major',
+        'give it away',
+        'blood sugar sex magik',
+        'under the bridge',
+        'naked in the rain',
+        'apache rose peacock',
+        'the greeting song',
+        'my lovely man',
+        'sir pshycho sexy',
+        'They\'re red hot',
+
     ]
-    save_lyrics(songs, 'The Chainsmokers', 'World War Joy')
+    save_lyrics(songs, 'Red-Hot-Chili-Peppers', 'Blood Sugar Sex Magik')

@@ -5,7 +5,7 @@ It also allows you to visualise the results in a unique way.
 I personally use the visuals to make my own personal music t-shirts.
 Here's an example of me being happy with my very own dataviz t-shirt.
 
-![me being happy with my t-shirt](sample_dataviz/erik_driessen_avicii_tshirt.jpg)
+![me being happy with my t-shirt](sample_dataviz/erik_driessen_avicii_t-shirt example.PNG)
 
  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 

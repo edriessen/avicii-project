@@ -8,7 +8,7 @@ def disable_grid_form_axis(axis):
     axis.get_yaxis().set_visible(False)
 
 
-def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=False, album_color='', annotate=''):
+def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=False, album_color='', annotate='', save='', fill=True):
     #create figure
     fig, (ax1) = plt.subplots(frameon=False)
     grid_color = '#cccccc'
@@ -43,7 +43,10 @@ def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=F
 
     #plot the data
     x_values = dataframe['score']
-    ax1.scatter(x_values, dataframe['magnitude'], c=colors, s=sizes, alpha=1, zorder=2)
+    if fill:
+        ax1.scatter(x_values, dataframe['magnitude'], c=colors, s=sizes, alpha=1, zorder=2)
+    else:
+        ax1.scatter(x_values, dataframe['magnitude'], facecolor='none', edgecolor=colors, s=sizes, alpha=1, zorder=2)
     plt.ylabel('magnitude')
     plt.xlabel('sentiment')
     ax1.spines['right'].set_visible(False)
@@ -81,10 +84,13 @@ def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=F
             # ax1.annotate(str(i+1) + ': ' + txt, (dataframe['score'][i], dataframe['magnitude'][i]+0.2), size=6, va='center', ha='center')
             ax1.annotate(annotate_label, (annotate_x, dataframe['magnitude'][i]), size=6, va='center', ha='left')
 
-    plt.show()
+    if save == '':
+        plt.show()
+    else:
+        plt.savefig(save, transparent=True)
 
 
-def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', disable_grids=True, show_dots=False, line_length=99, emogrid=False):
+def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', disable_grids=True, show_dots=False, line_length=99, emogrid=False, save=''):
     x_values = dataframe['score']
     y_values = dataframe['magnitude']
 
@@ -141,5 +147,8 @@ def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', 
         ax.get_yaxis().set_visible(False)
         ax.axis('off')
 
-    plt.show()
+    if save == '':
+        plt.show()
+    else:
+        plt.savefig(save, transparent=True)
 

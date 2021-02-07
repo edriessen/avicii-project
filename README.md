@@ -109,6 +109,8 @@ Some details on the values:
 - album_color: the color for the dots. Leave empty for sentiment colours red, grey, and green. 
 - annotate: define how you'd like to annotate the dots. Use `'title'`, `'index'`, or `'index title'`. Leave empty for no annotation.
 - disable_grid: do you want to hide the grid of the plot (`True`/`False`)?
+- save (optional): pass to not show but save your file. Provide path, file name, and file type (e.g. `'path/scatterplot.png'`).
+- fill (optional): set to `False` if you do not want to fill the dots and only fill the edge colors. 
 
 Here's another example of the resulting dataviz from this function:
 
@@ -159,6 +161,7 @@ Some details on the values:
 - line_type: the type of line you want to use. Use `'s'` or `'straight'` for a straight line. Default is curved (Bézier curves).
 - line_color: set the colour for the line. Use supported default color label or hex colour, e.g. `'#ff0000'`. 
 - emo_grid: plots the following four quadrants in the image: weak negative, strong negative, weak positive, strong positive. 
+- save (optional): pass to not show but save your file. Provide path, file name, and file type (e.g. `'path/coolpath.png'`).
 
 And again the result:
 

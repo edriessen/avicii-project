@@ -9,7 +9,7 @@ Here's an example of me being happy with my very own dataviz t-shirt.
 
  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 
-# Create a dataviz of the lyrics your favourite artist
+# Create a dataviz of the lyrics of your favourite artist
 
 Good to see that you want to give my repository a try. The process is split into two parts:
 

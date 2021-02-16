@@ -10,6 +10,9 @@ def get_sentiment_from_text(text):
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT)
+    content_length = len(document.content)
+    if content_length > 5000:
+        print('!! WARNING: content is over 5000!')
     sentiment = client.analyze_sentiment(document=document).document_sentiment
     return(sentiment)
 

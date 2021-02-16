@@ -88,6 +88,7 @@ def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=F
         plt.show()
     else:
         plt.savefig(save, transparent=True)
+        plt.close()
 
 
 def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', disable_grids=True, show_dots=False, line_length=99, emogrid=False, save=''):
@@ -151,4 +152,5 @@ def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', 
         plt.show()
     else:
         plt.savefig(save, transparent=True)
+        plt.close()
 

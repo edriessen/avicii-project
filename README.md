@@ -4,7 +4,7 @@ You can use this project to analyse music lyrics (text) for sentiment using Goog
 It also allows you to visualise the results in a unique way.
 I personally use the visuals to make my own t-shirts of musics that I like.
 
-![avicii project dataviz hero image](sample_dataviz/avicii_tim_plot_hero.png)
+![avicii project dataviz hero image](sample_dataviz/avicii_tim_plot_hero.PNG)
 
  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 

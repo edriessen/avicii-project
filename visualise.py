@@ -91,52 +91,40 @@ def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=F
         plt.close()
 
 
-def plot_path_from_dataframe(dataframe, line_color='black', line_type='curved', disable_grids=True, show_dots=False, line_length=99, emogrid=False, save=''):
+def plot_path_from_dataframe(dataframe, line_colors=['black'], line_styles=['-'], line_widths=[2], line_types=['curved'], disable_grids=True, show_dots=False, dot_color='#111111', line_length=99, save=''):
     x_values = dataframe['score']
     y_values = dataframe['magnitude']
 
-    verts = []
-    codes = []
-    for i, item in enumerate(x_values):
-        if i <= line_length:
-            verts.append((item, y_values[i]))
-            if i == 0:
-                codes.append(Path.MOVETO)
-            elif i >= len(x_values) - 1:
-                codes.append(Path.LINETO)
-            else:
-                if line_type == 'straight' or line_type == 's':
-                    codes.append(Path.LINETO)
-                else:
-                    codes.append(Path.CURVE4)
-
-    path = Path(verts, codes)
-
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    grid_color = '#cccccc'
-    grid_text_color = '#777777'
-
-    if emogrid:
-        magnitude_max = dataframe['magnitude'].max()
-        magnitude_mid = dataframe['magnitude'].min() + (dataframe['magnitude'].max()-dataframe['magnitude'].min())/2
-        magnitude_range = dataframe['magnitude'].max()-dataframe['magnitude'].min()
-        score_min = dataframe['score'].min()-0.2
-        score_max = dataframe['score'].max()+0.2
-        ax.plot([0, 0], [0, magnitude_max], c=grid_color, linewidth=1, zorder=0)
-        ax.plot([score_min, score_max], [magnitude_mid, magnitude_mid], c=grid_color, linewidth=1, zorder=0)
-        ax.annotate('negative\nstrong', (score_min/2, magnitude_max-(magnitude_range/4)), size=6, ha='center', color=grid_text_color)
-        ax.annotate('negative\nweak', (score_min/2, magnitude_mid - (magnitude_range/4)), size=6, ha='center', color=grid_text_color)
-        ax.annotate('positive\nstrong', (score_max / 2, magnitude_max - (magnitude_range/4)), size=6, ha='center', color=grid_text_color)
-        ax.annotate('positive\nweak', (score_max / 2, magnitude_mid - (magnitude_range/4)), size=6, ha='center', color=grid_text_color)
 
     if show_dots:
-        ax.scatter(x_values, y_values, c='#111111', s=25, alpha=1, zorder=2)
+        ax.scatter(x_values, y_values, c=dot_color, s=25, alpha=1, zorder=2)
         for i, txt in enumerate(dataframe['title']):
-            ax.annotate(str(i + 1), (dataframe['score'][i] + 0.02, dataframe['magnitude'][i]), size=6, va='center', ha='center')
+            ax.annotate(str(i + 1), (dataframe['score'][i] + 0.025, dataframe['magnitude'][i]), size=6, va='center', ha='center', c=dot_color)
 
-    patch = mpatches.PathPatch(path, facecolor='none', lw=2, edgecolor=line_color)
-    ax.add_patch(patch)
+    for index, line_type in enumerate(line_types):
+        verts = []
+        codes = []
+        for i, item in enumerate(x_values):
+            if i <= line_length:
+                vert_x = item
+                vert_y = y_values[i]
+                verts.append((vert_x, vert_y))
+                if i == 0:
+                    codes.append(Path.MOVETO)
+                elif i >= len(x_values) - 1:
+                    codes.append(Path.LINETO)
+                else:
+                    if line_type == 'straight' or line_type == 's':
+                        codes.append(Path.LINETO)
+                    else:
+                        codes.append(Path.CURVE4)
+
+        path = Path(verts, codes)
+
+        patch = mpatches.PathPatch(path, facecolor='none', lw=line_widths[index], linestyle=line_styles[index], edgecolor=line_colors[index], zorder=3)
+        ax.add_patch(patch)
 
     graph_correction_x = 0.1
     graph_correction_y = 0.5

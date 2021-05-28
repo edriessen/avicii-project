@@ -132,7 +132,7 @@ viz_buddy.set_path_options(
  viz_buddy.plot_path()
 ```
 
-_Make sure the lists you provide for the path options have the same length. You have two options for line types: `'bezier'` draws a bezier curve. Anything else (e.g. `''` draws a straight line._
+_Make sure the lists you provide for the path options have the same length. You have two options for line types: `'bezier'` draws a bezier curve. Anything else (e.g. `''`) draws a straight line._
 
 And again the result:
 

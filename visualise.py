@@ -44,7 +44,7 @@ def scatter_plot_from_dataframe(dataframe, magnitude_amplifier=0, disable_grid=F
     #plot the data
     x_values = dataframe['score']
     if fill:
-        ax1.scatter(x_values, dataframe['magnitude'], c=colors, s=sizes, alpha=1, zorder=2)
+        ax1.scatter(x_values, dataframe['magnitude'], c=colors, s=sizes, alpha=.7, zorder=2)
     else:
         ax1.scatter(x_values, dataframe['magnitude'], facecolor='none', edgecolor=colors, s=sizes, alpha=1, zorder=2)
     plt.ylabel('magnitude')
@@ -99,9 +99,9 @@ def plot_path_from_dataframe(dataframe, line_colors=['black'], line_styles=['-']
     ax = fig.add_subplot(111)
 
     if show_dots:
-        ax.scatter(x_values, y_values, c=dot_color, s=25, alpha=1, zorder=2)
+        ax.scatter(x_values, y_values, c=dot_color, s=25, alpha=1, zorder=4)
         for i, txt in enumerate(dataframe['title']):
-            ax.annotate(str(i + 1), (dataframe['score'][i] + 0.025, dataframe['magnitude'][i]), size=6, va='center', ha='center', c=dot_color)
+            ax.annotate(dataframe['index'][i], (dataframe['score'][i] + 0.025, dataframe['magnitude'][i]), size=6, va='center', ha='center', c=dot_color, zorder=4)
 
     for index, line_type in enumerate(line_types):
         verts = []

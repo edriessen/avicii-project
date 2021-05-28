@@ -62,6 +62,8 @@ def get_sentiment_single_song_from_file(file):
 
 def save_list_to_csv_with_name(list, file_name):
     df = pd.DataFrame(list)
+    if not os.path.exists('output'):
+        os.makedirs('output')
     df.to_csv('output/' + file_name + '.csv', index=False)
 
 

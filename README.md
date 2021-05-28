@@ -1,51 +1,49 @@
-# The Avicii project: generating a signature from the songs on an album in Python
+# The Avicii project: exploring sentiment data using Python
 
 You can use this project to analyse music lyrics (text) for sentiment using Google Natural Language API.
-It also allows you to visualise the results in a unique way.
-I personally use the visuals to make my own t-shirts of musics that I like.
+It also allows you to explore the sentiment data using visualisation. 
+I personally use the visuals to make my own t-shirts of musics that I like.  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 
 ![avicii project dataviz hero image](sample_dataviz/avicii_tim_plot_hero.PNG)
 
- [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
 
-# Creating a unique dataviz of the lyrics of your favourite artist
+# Creating a dataviz of the lyrics of your favourite artist
 
-Good to see that you want to give my repository a try. The process is split into two parts:
+Good to see that you want to give my repository a try. The process is split into three parts:
 
-1. Analyse the song texts.
-2. Visualisation to review the sentiment data.
-3. Generate a signature from the data.
+1. Analyse the song texts
+2. Scatter plot visualisation to review the sentiment data
+3. Creative path visualisation (data art)
 
-I'll use Avicii's posthumous album TIM as an example in this readme. 
-You can see an example setup in `run-example.py`. 
-Let's dig in.
+I'll use Avicii's posthumous album TIM as an example in this readme. Let's dig in.
 
 # 1. Analyse the songtexts
 
-To run an analysis, you'll need a connection to the Google Cloud Natural Language API. 
-Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. 
-After that, you'll need a `.txt` file for each song that you want to analyse. 
-I use https://www.azlyrics.com to get my lyrics.
+To run an analysis, you'll need a connection to the Google Cloud Natural Language API.  Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. 
 
-Format each `.txt` file like this: `song index-album name-song title.txt`. 
+After setting it up, you'll need a `.txt` file for each song that you want to analyse. I use https://www.azlyrics.com to get my lyrics. Format each `.txt` file like this: `song index-album name-song title.txt`. 
 
-For the song Peace of Mind by Avicii, the first song on the album TIM, this would be: `1-tim-peace of mind.txt`. 
-Store the text files of an albums inside the `songs` folder in my project. 
+>  **Example**: For the song Peace of Mind by Avicii, the first song on the album TIM, the file name would be: `1-tim-peace of mind.txt`. 
 
-When you have the files ready, you can use `analyse_files_and_store_in_csv` from `analyse.py` to run the sentiment analysis and store the results in a csv file. 
-The function takes two arguments:
+Store the text files somehwere inside the project folder (the folder `/songs` is listed in the `.gitignore`).  
 
-- path to song files, e.g. `songs/avicii tim`.
+When you have the files ready, you can use `analyse.py` to run the sentiment analysis and store the results in a csv file. You'll have to provide two arguments:
+
+- path to the folder that contains the text files to analyse, e.g. `songs/avicii tim`.
 - name of the csv file that will be stored in the output folder, e.g. `avicii tim`. 
 
-A full example looks like this:
+Here's the example listed in `analyse.py`:
 
-`analyse_files_and_store_in_csv('songs/avicii tim', 'avicii tim')`
+```python
+if __name__ == '__main__':
+    path_to_songs = 'songs/avicii_tim'
+    csv_file_name = 'avicii tim'
+    analyse_files_and_store_in_csv(path_to_songs, csv_file_name)
+```
+With the analysis done, you can continue to section 2. 
 
-### Scrape lyrics automatically from Genius.com
-You have the option to scrape for the lyrics using the `lyrics.py` file. 
-To use the script, you have to generate an access key on https://genius.com/api-clients.
-Store the access key in a json file called `credentials-genius.json` with this format:
+### Optional: Fetch lyrics automatically from Genius.com
+You have the option to fetch the lyrics using the `lyrics.py` file. To use the script, you have to generate an access key on https://genius.com/api-clients. Store the access key in a json file called `credentials-genius.json` with this format:
 
 ```
 {
@@ -53,164 +51,126 @@ Store the access key in a json file called `credentials-genius.json` with this f
 }
 ```
 
-After that, enter the song titles, artist, and album as appropriate in `lyrics.py`. 
-You will need to create the appropriate folder under the songs folder (for example, for Lady Gaga, you will need to create a `Lady Gaga` folder: `songs/Lady Gaga`. 
-The script will generate the text files and put them in the folder.
+After that, enter the song titles, artist, and album as appropriate in `lyrics.py`. You will need to create the appropriate folder under the songs folder (for example, for Lady Gaga, you will need to create a `Lady Gaga` folder: `songs/Lady Gaga`). The script will generate the text files and put them in the folder.
 
 _Small changes in the lyrics can impact the visual.
 So be sure to check the lyrics when you get them automatically._
 
-# 2. Visualisation to review the sentiment data
+# 2. Scatter plot visualisation to review the sentiment data
 
-You can visualise the data with the functions in `visualise.py`. 
-The basic scatter plot allows you to get an understanding of results of the sentiment analysis.
+I've created a class to help you visualise the data. First, we will discuss the scatter plot. A visualisation that helps you explore the sentiment data and get familiar with the results. (You can review `run-example.py` if reading isn't your thing.)
 
-You'll have to transform the generated data sheet into a dataframe first. 
-You can do so using the standard Pandas `read_csv` function:
+The first thing you'll need to do is load the results from your analysis into a dataframe. And after that, create an instance of the VisualiseSentiment class:
 
-```
-tim_df = pd.read_csv('output/avicii tim.csv').sort_values(by='index').reset_index()
-```
+```Python
+from visualise_sentiment import VisualiseSentiment
 
-Use the `scatter_plot_from_dataframe` function to create a scatter plot. 
-It gives you an readable overview of the sentiment analysis' results. 
-You only have to pass 1 value (a dataframe):
+df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
 
-```
-scatter_plot_from_dataframe(
-    dataframe=tim_df,
-)
-```
-Here's an example of the results:
-
-![Avicii Time Scatter Basic](sample_dataviz/avicii_scatter_basic.png)
-
-The function has some optional extra values you can use:
-
-```
-scatter_plot_from_dataframe(
-    dataframe=tim_df,
-    magnitude_amplifier=0,
-    album_color='purple',
+viz_buddy = VisualiseSentiment(
+    dataframe=df,
+    show_grid=True,
     annotate='index',
-    disable_grid=True,
 )
 ```
-Some details on the values:
+The class takes four arguments:
 
-- dataframe: the data frame you want to visualise.
-- magnitude_amplifier: changes the size of a dot based on the magnitude.
-- album_color: the color for the dots. Leave empty for sentiment colours red, grey, and green. 
-- annotate: define how you'd like to annotate the dots. Use `'title'`, `'index'`, or `'index title'`. Leave empty for no annotation.
-- disable_grid: do you want to hide the grid of the plot (`True`/`False`)?
-- save (optional): pass to not show but save your file. Provide path, file name, and file type (e.g. `'path/scatterplot.png'`).
-- fill (optional): set to `False` if you do not want to fill the dots and only fill the edge colors. 
+- dataframe: the data you want to visualise.
+- show_grid: boolean that enables or disables grids in plots.
+- annotate (optional): string to set annotation values:
+	- `''` for no annotation (default)
+	- `'index'` to annotate with the index of the data
+	- `'title'` to annotate with the title of the text
+	- `'index title'` to annotate with both index and title
+- save (optinal): name of the file to save the plot to (e.g. `'example_viz.png'`). Default value is `''` and shows the plot (`plt.show()`).
 
-Here's another example of the resulting dataviz from this function:
+After creating the instance, you can visualise the results easily using the `scatter_plot()` method. This generates the following results:
 
-![Avicii Time Scatter custom](sample_dataviz/avicii_scatter_custom.png)
+![Avicii Time Scatter default](sample_dataviz/example_scatter_default.png)
 
-# 3. Generating an organic signature from the data 
+You can modify some of the scatter plot options using the `set_scatter_options()` method:
 
-This is where the magic happens. 
-By drawing a line from one song to the next, based on the index on the album, we can generate an organic looking line.
-A line that resembles a hand-drawn signature.
-The project currently supports two types of line plots:
-
-- 3.1 Line plot
-- 3.1 Edge plot
-
-Let's review them both in detail.
-
-## 3.1 The line path of your favourite music
-
-I'm starting to repeat myself, but this one feels magical to me. 
-Using the patches option from Matplotlib, you can draw a line from one point to the next. 
-In this case, each point is represented by the sentiment score (x) and the magnitued (y). 
-By drawing Bézier curves in stead of straight lines, we get to the organic looking shape.
-  
-Use the `path_plot_from_dataframe` function to create the line. 
-Again, you only have to pass a dataframe.
-
-```
-plot_path_from_dataframe(
-    dataframe=df
+```python
+viz_buddy.set_scatter_options(
+    dot_color='#f0123a',
+    dot_fill=False,
+    dot_amplifier=25,
 )
+viz_buddy.scatter_plot()
+```
+Which results in:
+
+![Avicii Time Scatter custom](sample_dataviz/example_scatter_custom.png)
+
+# 3. Creative path visualisation (data art)
+
+This is where the magic happens. Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' drawing. 
+
+Using the `plot_path()` method, you get the following result by default:
+
+![Avicii Time Path Basic](sample_dataviz/example_path_default.png)
+
+Wow, that is some nice abstract data visualisation right?! :)
+
+There are some some options you can set using the `set_path_options()` method: 
+
+```python
+viz_buddy.show_grid = False
+viz_buddy.set_path_options(
+    colors=['#ff1a55', '#ff1a55'],
+    styles=['--', '-'],
+    widths=[1, 2],
+    types=['', 'bezier'],
+    # length=99,
+    # dot_colours='#ff0000',
+ )
+    
+ viz_buddy.plot_path()
 ```
 
-And the result is: 
-
-![Avicii Time Path Basic](sample_dataviz/avicii_path_basic.png)
-
-Wow, that is some nice abstract dataviz right?! :)
-
-Also this function has some extra options. 
-I've used these during testing to see if lines were drawn correctly. 
-I decided to keep them in so you can get an understanding of how the drawing works. 
-Here's an example of the function with all it's extra options set:
-
-```
-plot_path_from_dataframe(
-  dataframe=df,
-  show_dots=True,
-  dot_color='black',
-  disable_grids=True,
-  line_types=['s', 'c'],
-  line_colors=['blue', 'blue'],
-  line_styles=['--', '-'],
-  line_widths=[1,2],
-)
-
-```
-
-Some details on the values:
-
-- dataframe: the data frame you want to visualise.
-- show_dots: do you want to show dots in this plot (`True`/`False`)?
-- dot_color: set the color for the dots and dot labels, default `'black'`.
-- disable_grids: do you want to hide the grid of the plot (`True`/`False`)?
-- line_types: the list of line types you want to use. Use `'s'` or `'straight'` for a straight line. Default is curved (Bézier curves).
-- line_colors: set the colours for the lines. Use supported default color label or hex colour, e.g. `'#ff0000'`. 
-- line_styles: the list of line styles you want to use, for example `['-', '--']` for a solid and a dashed line.
-- line_widths: the width of the lines you want to plot, for exameple `[1,2]`. 
-- save (optional): pass to not show but save your file. Provide path, file name, and file type (e.g. `'path/coolpath.png'`).
-
-_Make sure the lists you provide for the line_vars have the same length._
+_Make sure the lists you provide for the path options have the same length. You have two options for line types: `'bezier'` draws a bezier curve. Anything else (e.g. `''` draws a straight line._
 
 And again the result:
 
-![Avicii Time Path Custom](sample_dataviz/avicii_path_custom.png)
+![Avicii Time Path Custom](sample_dataviz/example_path_custom1.png)
+
+This setup nicely shows both the straight path and the bezier curves that are generated.
 
 Here's another example that plots the same line several times with different colours and widths:
 
-```
-plot_path_from_dataframe(
-  dataframe=df,
-  line_types=['c', 'c', 'c', 'c', 'c', 'c'],
-  line_colors=['#E6E6E6', '#F2C641', '#E52133', '#A40454', '#02388F', '#ffffff'],
-  line_styles=['-', '-', '-', '-', '-', '-'],
-  line_widths=[38,30,22,14,8,2],
+```python
+viz_buddy.show_grid = False
+viz_buddy.set_path_options(
+    colors=['#E6E6E6', '#F2C641', '#E52133', '#A40454', '#02388F', '#ffffff'],
+    styles=['-', '-', '-', '-', '-', '-'],
+    widths=[38,30,22,14,8,2],
+    types=['bezier', 'bezier', 'bezier', 'bezier', 'bezier', 'bezier'],
+    length=99,
+    dot_colours='none',
 )
+    
+viz_buddy.plot_path()
 ```
-
 And the image:
 
-![Avicii Time Path Custom Multi Colours](sample_dataviz/avicii_tim_multi_color_plot.png)
+![Avicii Time Path Custom Multi Colours](sample_dataviz/example_path_custom2.png)
 
-# 3.1 Edge Plot
+No real purpose for this one, but it's good to know your options :)
+
+#### Optinal: Edge Plot
 
 I have included an option to draw a different kind of path. 
-As discussed, the path is normally drawn based on the order of the songs on an album. 
+As discussed, the path is normally drawn based on the order of the songs on an album (or index column in the dataframe). 
 But if you want, you can change it to an edge shape. 
 This draws a line across the outermost points in the data set. 
 
 Here's an example of the data of Avicii's TIM: 
 
-![Avicii Edge Path Straight](sample_dataviz/avicii_edge_path_straight.png)
+![Avicii Edge Path Straight](sample_dataviz/example_edge_path_straight.png)
 
 And the version with a curved path:
 
-![Avicii Edge Path Curved](sample_dataviz/avicii_edge_path_curved.png)
+![Avicii Edge Path Curved](sample_dataviz/example_edge_path_curved.png)
 
 Technically, it works like this:
 
@@ -239,9 +199,6 @@ df_filtered = sort_df_by_starting_point(
   start_at='bad-reputation'
 )
 ```
-
-I've used this edge path to make myself a Gorillaz album t-shirt. Read the story here: [Gorillaz T-Shirt Story](http://www.edriessen.com/2020/11/28/gorillaz-gorillaz-and-a-new-dataviz-t-shirt/).
-
 # To do
 
 Things I'll be working on are:

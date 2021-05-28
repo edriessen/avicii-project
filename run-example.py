@@ -1,25 +1,29 @@
-from visualise import scatter_plot_from_dataframe, plot_path_from_dataframe
-from analyse import analyse_files_and_store_in_csv
+from visualise_sentiment import VisualiseSentiment
 import pandas as pd
 
 if __name__ == '__main__':
-    # run analyse once to limit your calls to Google Natural Language API
-    # analyse_files_and_store_in_csv('songs/avicii tim', 'avicii tim')
-    df = pd.read_csv('output/avicii tim.csv').sort_values(by='index').reset_index()
+    df = pd.read_csv('output/avicii tim.csv').sort_values(by='index')
 
-    scatter_plot_from_dataframe(
+    viz_buddy = VisualiseSentiment(
         dataframe=df,
-        magnitude_amplifier=0,
-        disable_grid=False,
+        show_grid=False,
         annotate='index',
-        album_color=''
+        # save='visuals/example.png'
     )
 
-    plot_path_from_dataframe(
-      dataframe=df,
-      show_dots=True,
-      disable_grids=False,
-      line_type='c',
-      line_color='black',
-      emogrid=True,
+    viz_buddy.set_scatter_options(
+        dot_color='#f0123a',
+        dot_fill=False,
+        dot_amplifier=25,
     )
+    viz_buddy.scatter_plot()
+
+    viz_buddy.set_path_options(
+        colors=['#ff0000', '#00ff00'],
+        styles=['--', '-'],
+        widths=[1, 2],
+        types=['', 'bezier'],
+        # length=99,
+        # dot_colours='#ff0000',
+    )
+    viz_buddy.path_plot()

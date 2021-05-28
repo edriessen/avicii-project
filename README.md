@@ -110,6 +110,10 @@ Using the `plot_path()` method, you get the following result by default:
 
 ![Avicii Time Path Basic](sample_dataviz/example_path_default.png)
 
+Let's have a look at a clean version of the plot:
+
+![Avicii Time Path Basic Cleaned](sample_dataviz/example_path_clean.png)
+
 Wow, that is some nice abstract data visualisation right?! :)
 
 There are some some options you can set using the `set_path_options()` method: 

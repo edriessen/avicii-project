@@ -41,11 +41,11 @@ class VisualiseSentiment():
 
     def set_scatter_options(self, dot_color='', dot_fill='', dot_amplifier=''):
         """Change options for scatter plot"""
-        if dot_color:
+        if dot_color != '':
             self.scatter_dot_color = dot_color
-        if dot_fill:
+        if dot_fill != '':
             self.scatter_dot_fill = dot_fill
-        if dot_amplifier:
+        if dot_amplifier != '':
             self.scatter_dot_amplifier = dot_amplifier
 
     def scatter_plot(self):
@@ -129,17 +129,17 @@ class VisualiseSentiment():
 
     def set_path_options(self, colors='', styles='', widths='', types='', length='', dot_colours=''):
         """Change options for path plot(s)"""
-        if colors:
+        if colors != '':
             self.path_colors = colors
-        if styles:
+        if styles != '':
             self.path_styles = styles
-        if widths:
+        if widths != '':
             self.path_widths = widths
-        if types:
+        if types != '':
             self.path_types = types
-        if length:
+        if length != '':
             self.path_length = length
-        if dot_colours:
+        if dot_colours != '':
             self.path_dot_colours = dot_colours
 
     def path_plot(self):

@@ -1,4 +1,4 @@
-# The Avicii project: exploring sentiment data using Python
+# Avicii Open Data Art Project
 
 You can use this project to analyse music lyrics (text) for sentiment using Google Natural Language API.
 It also allows you to explore the sentiment data using visualisation. 

@@ -207,4 +207,6 @@ df_filtered = sort_df_by_starting_point(
 
 Things I'll be working on are:
 
-_Nothing. Feel free to contact me with requests._
+- Migrate to a free and open alternative to Google's Natural Language API. 
+
+_Suggestions? Please do contact me._

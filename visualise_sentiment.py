@@ -38,6 +38,7 @@ class VisualiseSentiment():
         self.path_types = ['bezier']
         self.path_length = 99
         self.path_dot_colours = '#111111'
+        self.path_close = False
 
     def set_scatter_options(self, dot_color='', dot_fill='', dot_amplifier=''):
         """Change options for scatter plot"""
@@ -127,7 +128,7 @@ class VisualiseSentiment():
         else:
             plt.show()
 
-    def set_path_options(self, colors='', styles='', widths='', types='', length='', dot_colours=''):
+    def set_path_options(self, colors='', styles='', widths='', types='', length='', dot_colours='', close=''):
         """Change options for path plot(s)"""
         if colors != '':
             self.path_colors = colors
@@ -141,6 +142,8 @@ class VisualiseSentiment():
             self.path_length = length
         if dot_colours != '':
             self.path_dot_colours = dot_colours
+        if close != '':
+            self.path_close = close
 
     def path_plot(self):
         """Plot sentiment data by score and magnitude as one or multiple paths"""
@@ -179,6 +182,10 @@ class VisualiseSentiment():
                         else:
                             codes.append(Path.LINETO)
 
+            if self.path_close:
+                verts.append((0,0))
+                codes.append(Path.CLOSEPOLY)
+
             path = Path(verts, codes)
             patch = mpatches.PathPatch(path, facecolor='none', lw=self.path_widths[index], linestyle=self.path_styles[index],
                                        edgecolor=self.path_colors[index], zorder=3)
@@ -202,5 +209,64 @@ class VisualiseSentiment():
             plt.close()
         else:
             plt.show()
+
+
+    def web_plot(self):
+        """Plot sentiment data by score and magnitude as web of paths"""
+        x_values = self.dataframe['score']
+        y_values = self.dataframe['magnitude']
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+
+        # plot dots
+        if self.path_dot_colours != 'none':
+            ax.scatter(x_values, y_values, c=self.path_dot_colours, s=25, alpha=1, zorder=4)
+            annotate_axis_with_labels_by_x_values_y_values(
+                axis=ax,
+                annotate=self.annotate,
+                labels=self.dataframe['title'],
+                x_values=x_values,
+                y_values=y_values,
+            )
+
+        # draw web
+        verts = []
+        codes = []
+        active_nodes = []
+        for index, x_value in enumerate(x_values):
+            for index2, x_value2 in enumerate(x_values):
+                if index != index2:
+                    if sorted((index, index2)) not in active_nodes:
+                        verts.append((x_value, y_values[index]))
+                        codes.append(Path.MOVETO)
+                        verts.append((x_value2, y_values[index2]))
+                        codes.append(Path.LINETO)
+                        active_nodes.append(sorted((index, index2)))
+
+        path = Path(verts, codes)
+        patch = mpatches.PathPatch(path, facecolor='none', lw=self.path_widths[0], linestyle=self.path_styles[0],
+                                   edgecolor=self.path_colors[0], zorder=3)
+        ax.add_patch(patch)
+
+        # adjust x and y limits
+        graph_correction_x = 0.1
+        graph_correction_y = 0.5
+        ax.set_xlim(min(x_values) - graph_correction_x, max(x_values) + graph_correction_x)
+        ax.set_ylim(min(y_values) - graph_correction_y, max(y_values) + graph_correction_y)
+
+        # hide grid
+        if not self.show_grid:
+            ax.get_xaxis().set_visible(False)
+            ax.get_yaxis().set_visible(False)
+            ax.axis('off')
+
+        # save or show plot
+        if self.save:
+            plt.savefig(self.save, transparent=True)
+            plt.close()
+        else:
+            plt.show()
+
+
 
 

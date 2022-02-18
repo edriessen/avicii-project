@@ -83,7 +83,7 @@ The class takes four arguments:
 
 After creating the instance, you can visualise the results easily using the `scatter_plot()` method. This generates the following results:
 
-![Avicii Time Scatter default](sample_dataviz/example_scatter_default.png)
+![Avicii TIM data visualisation Scatter default](sample_dataviz/example_scatter_default.png)
 
 You can modify some of the scatter plot options using the `set_scatter_options()` method:
 
@@ -97,19 +97,25 @@ viz_buddy.scatter_plot()
 ```
 Which results in:
 
-![Avicii Time Scatter custom](sample_dataviz/example_scatter_custom.png)
+![Avicii TIM data visualisation Scatter custom](sample_dataviz/example_scatter_custom.png)
 
 # 3. Creative path visualisation (data art)
 
-This is where the magic happens. Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' drawing. 
+This is where the magic happens. Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' type of drawings. I currently support three types:
+
+- Signature path
+- Web path
+- Edge path
+
+### Signature path
 
 Using the `plot_path()` method, you get the following result by default:
 
-![Avicii Time Path Basic](sample_dataviz/example_path_default.png)
+![Avicii TIM data visualisation Path Basic](sample_dataviz/example_path_default.png)
 
 Let's have a look at a clean version of the plot:
 
-![Avicii Time Path Basic Cleaned](sample_dataviz/example_path_clean.png)
+![Avicii TIM data visualisation Path Basic Cleaned](sample_dataviz/example_path_clean.png)
 
 Wow, that is some nice abstract data visualisation right?! :)
 
@@ -133,7 +139,7 @@ _Make sure the lists you provide for the path options have the same length. You 
 
 And again the result:
 
-![Avicii Time Path Custom](sample_dataviz/example_path_custom1.png)
+![Avicii TIM data visualisation Path Custom](sample_dataviz/example_path_custom1.png)
 
 This setup nicely shows both the straight path and the bezier curves that are generated.
 
@@ -154,24 +160,44 @@ viz_buddy.plot_path()
 ```
 And the image:
 
-![Avicii Time Path Custom Multi Colours](sample_dataviz/example_path_custom2.png)
+![Avicii TIM data visualisation Path Custom Multi Colours](sample_dataviz/example_path_custom2.png)
 
 No real purpose for this one, but it's good to know your options :)
 
-#### Optinal: Edge Plot
+### 3.2 Web path
 
-I have included an option to draw a different kind of path. 
-As discussed, the path is normally drawn based on the order of the songs on an album (or index column in the dataframe). 
-But if you want, you can change it to an edge shape. 
+This option draws a line from each data point to every other data point. For this one, I was inspired by a few students that took my course. Some ended up using this project to draw abstract, cubist-like graphics. Really interesting. This web path can be called using the `web_path()` module. It uses the same input as `plot_path()` but only uses the first argument of various input lists.
+
+Here's the same data, shown as a web plot:
+
+![Avicii TIM web plot](sample_dataviz/example_web.png)
+
+And the code snippet that makes this work:
+
+```python
+viz_buddy.set_path_options(
+        colors=['#000000'],
+        styles=['-'],
+        widths=[1],
+        types=[''],
+        dot_colours='none',
+    )
+
+viz_buddy.web_plot()
+```
+
+### 3.3 Edge path
+
+I have included an option to draw a different kind of path. As discussed, the path is normally drawn based on the order of the songs on an album (or index column in the dataframe). But if you want, you can change it to an edge shape. 
 This draws a line across the outermost points in the data set. 
 
 Here's an example of the data of Avicii's TIM: 
 
-![Avicii Edge Path Straight](sample_dataviz/example_edge_path_straight.png)
+![Avicii TIM data visualisation Edge Path Straight](sample_dataviz/example_edge_path_straight.png)
 
 And the version with a curved path:
 
-![Avicii Edge Path Curved](sample_dataviz/example_edge_path_curved.png)
+![Avicii TIM data visualisation Edge Path Curved](sample_dataviz/example_edge_path_curved.png)
 
 Technically, it works like this:
 

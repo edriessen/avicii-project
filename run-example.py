@@ -19,7 +19,7 @@ if __name__ == '__main__':
     viz_buddy.scatter_plot()
 
     viz_buddy.set_path_options(
-        colors=['#ff0000', '#00ff00'],
+        colors=['#ff0000', '#000000'],
         styles=['--', '-'],
         widths=[1, 2],
         types=['', 'bezier'],
@@ -27,3 +27,13 @@ if __name__ == '__main__':
         # dot_colours='#ff0000',
     )
     viz_buddy.path_plot()
+
+    viz_buddy.set_path_options(
+        colors=['#000000'],
+        styles=['-'],
+        widths=[1],
+        types=[''],
+        dot_colours='none',
+    )
+
+    viz_buddy.web_plot()

@@ -1,11 +1,8 @@
-# The Avicii project: exploring sentiment data using Python
+# Avicii Open Data Art Project
 
 You can use this project to analyse music lyrics (text) for sentiment using Google Natural Language API.
 It also allows you to explore the sentiment data using visualisation. 
 I personally use the visuals to make my own t-shirts of musics that I like.  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
-
-![avicii project dataviz hero image](sample_dataviz/avicii_tim_plot_hero.PNG)
-
 
 # Creating a dataviz of the lyrics of your favourite artist
 
@@ -207,4 +204,6 @@ df_filtered = sort_df_by_starting_point(
 
 Things I'll be working on are:
 
-_Nothing. Feel free to contact me with requests._
+- Migrate to a free and open alternative to Google's Natural Language API. 
+
+_Suggestions? Please do contact me._

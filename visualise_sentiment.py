@@ -6,7 +6,7 @@ from matplotlib.path import Path
 def annotate_axis_with_labels_by_x_values_y_values(annotate, axis, labels, x_values, y_values):
     for i, txt in enumerate(labels):
         annotate_label = txt
-        annotate_x = x_values[i] + .025
+        annotate_x = x_values[i] + .02
         annotate_y = y_values[i]
 
         if annotate == 'index':

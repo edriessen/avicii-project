@@ -8,8 +8,4 @@ songs/*
 visuals/*
 prints/*
 venv/*
-run_local.py
-run_demo.py
-run_batch.py
-visualise-*.py
-
+local_*.py

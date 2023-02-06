@@ -103,11 +103,11 @@ Which results in:
 
 This is where the magic happens. Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' type of drawings. I currently support three types:
 
-- Signature path
-- Web path
-- Edge path
+- 3.1 Signature path
+- 3.2 Web path
+- 3.3 Edge path
 
-### Signature path
+### 3.1 Signature path
 
 Using the `plot_path()` method, you get the following result by default:
 

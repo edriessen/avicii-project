@@ -9,3 +9,4 @@ visuals/*
 prints/*
 venv/*
 local_*.py
+local_*.ipynb

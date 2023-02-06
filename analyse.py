@@ -9,7 +9,8 @@ def get_sentiment_from_text(text):
     text = u''+text
     document = types.Document(
         content=text,
-        type=enums.Document.Type.PLAIN_TEXT)
+        type=enums.Document.Type.PLAIN_TEXT,
+        )
     content_length = len(document.content)
     if content_length > 5000:
         print('!! WARNING: content is over 5000!')
@@ -23,7 +24,7 @@ def get_song_sentiment(folder):
     for index, file in enumerate(files):
         if index < 199 :
             song_name = file.split('.')[0]
-            song = open(folder+'/'+file, 'r')
+            song = open(folder+'/'+file, 'r', encoding="utf-8")
             song_parts = song_name.split('-')
             song_index = song_parts[0]
             song_album = song_parts[1]

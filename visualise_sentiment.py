@@ -211,7 +211,7 @@ class VisualiseSentiment():
             plt.show()
 
 
-    def web_plot(self):
+    def web_plot(self, line_width_value=''):
         """Plot sentiment data by score and magnitude as web of paths"""
         x_values = self.dataframe['score']
         y_values = self.dataframe['magnitude']
@@ -230,23 +230,29 @@ class VisualiseSentiment():
             )
 
         # draw web
-        verts = []
-        codes = []
         active_nodes = []
+
         for index, x_value in enumerate(x_values):
             for index2, x_value2 in enumerate(x_values):
                 if index != index2:
                     if sorted((index, index2)) not in active_nodes:
+                        verts = []
+                        codes = []
                         verts.append((x_value, y_values[index]))
                         codes.append(Path.MOVETO)
                         verts.append((x_value2, y_values[index2]))
                         codes.append(Path.LINETO)
                         active_nodes.append(sorted((index, index2)))
 
-        path = Path(verts, codes)
-        patch = mpatches.PathPatch(path, facecolor='none', lw=self.path_widths[0], linestyle=self.path_styles[0],
-                                   edgecolor=self.path_colors[0], zorder=3)
-        ax.add_patch(patch)
+                        line_width = .5
+                        if line_width_value in ['score', 'magnitude']:
+                            line_width = (abs(self.dataframe[line_width_value][index] - self.dataframe[line_width_value][index2]))
+
+                        path = Path(verts, codes)
+
+                        patch = mpatches.PathPatch(path, facecolor='none', lw=line_width*3, linestyle=self.path_styles[0],
+                                                   edgecolor=self.path_colors[0], zorder=3)
+                        ax.add_patch(patch)
 
         # adjust x and y limits
         graph_correction_x = 0.1

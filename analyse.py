@@ -22,9 +22,13 @@ def get_song_sentiment(folder):
     files = os.listdir(folder+'/')
     songs = []
     for index, file in enumerate(files):
+        print(file)
         if index < 199 :
             song_name = file.split('.')[0]
-            song = open(folder+'/'+file, 'r', encoding="utf-8")
+            song = open(
+                folder+'/'+file, 'r',
+                # encoding="utf-8"
+            )
             song_parts = song_name.split('-')
             song_index = song_parts[0]
             song_album = song_parts[1]

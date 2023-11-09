@@ -3,3 +3,4 @@ matplotlib==3.2.1
 google-api-python-client==1.8.0
 google-cloud-language==1.3.0
 lyricsgenius==1.8.4
+xlrd==1.1.0

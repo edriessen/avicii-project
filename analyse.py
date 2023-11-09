@@ -10,7 +10,7 @@ def get_sentiment_from_text(text):
     document = types.Document(
         content=text,
         type=enums.Document.Type.PLAIN_TEXT,
-        )
+    )
     content_length = len(document.content)
     if content_length > 5000:
         print('!! WARNING: content is over 5000!')
@@ -27,7 +27,7 @@ def get_song_sentiment(folder):
             song_name = file.split('.')[0]
             song = open(
                 folder+'/'+file, 'r',
-                # encoding="utf-8"
+                encoding="utf-8"
             )
             song_parts = song_name.split('-')
             song_index = song_parts[0]
@@ -49,7 +49,7 @@ def get_song_sentiment(folder):
 
 
 def get_sentiment_single_song_from_file(file):
-    song = open(file, 'r').read()
+    song = open(file, 'r', encoding='utf-8').read()
     song_lines = song.split('\n\n')
     lines_with_sentiment = []
     for line in song_lines:
@@ -80,4 +80,3 @@ if __name__ == '__main__':
     path_to_songs = 'songs/avicii_tim'
     csv_file_name = 'avicii tim'
     analyse_files_and_store_in_csv(path_to_songs, csv_file_name)
-

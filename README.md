@@ -1,20 +1,22 @@
 # Avicii Open Data Art Project
 
-You can use this project to analyse music lyrics (text) for sentiment using Google Natural Language API.
-It also allows you to explore the sentiment data using visualisation. 
-I personally use the visuals to make my own t-shirts of musics that I like.  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project.
+You can use this project to analyse text for sentiment using Google Natural Language API and explore the results with data visualisations.
+
+I personally use the visuals to make my own t-shirts of musics that I like.  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project and why I associate it with Avicii.
 
 # Creating a dataviz of the lyrics of your favourite artist
 
 Good to see that you want to give my repository a try. The process is split into three parts:
 
-1. Analyse the song texts
+1. Analyse the song texts or other text collections
 2. Scatter plot visualisation to review the sentiment data
 3. Creative path visualisation (data art)
 
-I'll use Avicii's posthumous album TIM as an example in this readme. Let's dig in.
+I'll use Avicii's posthumous album TIM as an example in this readme. 
 
-# 1. Analyse the songtexts
+Let's dig in.
+
+# 1. Analyse the song texts or other text collections
 
 To run an analysis, you'll need a connection to the Google Cloud Natural Language API.  Set up a project in the Google Cloud console and add your `credentials.json` to the project root folder. 
 
@@ -55,7 +57,9 @@ So be sure to check the lyrics when you get them automatically._
 
 # 2. Scatter plot visualisation to review the sentiment data
 
-I've created a class to help you visualise the data. First, we will discuss the scatter plot. A visualisation that helps you explore the sentiment data and get familiar with the results. (You can review `run-example.py` if reading isn't your thing.)
+I've created a class to help you visualise the data in various ways. 
+
+First, we will discuss the scatter plot. This visualisation helps you explore the sentiment data and get familiar with the results. You can review `run-example.py` for a working sample.
 
 The first thing you'll need to do is load the results from your analysis into a dataframe. And after that, create an instance of the VisualiseSentiment class:
 
@@ -85,14 +89,13 @@ After creating the instance, you can visualise the results easily using the `sca
 
 ![Avicii TIM data visualisation Scatter default](sample_dataviz/example_scatter_default.png)
 
-You can modify some of the scatter plot options using the `set_scatter_options()` method:
+You can modify various scatter plot options:
 
 ```python
-viz_buddy.set_scatter_options(
-    dot_color='#f0123a',
-    dot_fill=False,
-    dot_amplifier=25,
-)
+viz_buddy.scatter_dot_color = '#f0123a'
+viz_buddy.scatter_dot_fill = False
+viz_buddy.scatter_dot_amplifier = 25
+
 viz_buddy.scatter_plot()
 ```
 Which results in:
@@ -101,13 +104,17 @@ Which results in:
 
 # 3. Creative path visualisation (data art)
 
-This is where the magic happens. Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' type of drawings. I currently support three types:
+This is where the magic happens. 
+
+Using paths & patches from Matplotlib, you can draw a line from data point to data point. It creates a sort of abstract 'connect the dots' type of drawings. The visual stops being a data visualisation and slow turns into abstract data art.
+
+I currently support ways to get creative:
 
 - 3.1 Signature path
 - 3.2 Web path
-- 3.3 Edge path
+- 3.3 Dataframe modifications
 
-### 3.1 Signature path
+### 3.1 Signature path (Bezier)
 
 Using the `plot_path()` method, you get the following result by default:
 
@@ -119,42 +126,38 @@ Let's have a look at a clean version of the plot:
 
 Wow, that is some nice abstract data visualisation right?! :)
 
-There are some some options you can set using the `set_path_options()` method: 
+There are some some options you can set when plotting the path: 
 
 ```python
 viz_buddy.show_grid = False
-viz_buddy.set_path_options(
-    colors=['#ff1a55', '#ff1a55'],
-    styles=['--', '-'],
-    widths=[1, 2],
-    types=['', 'bezier'],
-    # length=99,
-    # dot_colours='#ff0000',
- )
+
+viz_buddy.path_colors = ['#ff1a55', '#ff1a55']
+viz_buddy.path_styles = ['--', '-']
+viz_buddy.path_widths = [1, 2]
+viz_buddy.path_types = ['', 'bezier']
     
  viz_buddy.plot_path()
 ```
 
-_Make sure the lists you provide for the path options have the same length. You have two options for line types: `'bezier'` draws a bezier curve. Anything else (e.g. `''`) draws a straight line._
+_Make sure the lists you provide for the path options have the same length. You have two options for line types: `'bezier'` draws a Bezier curve. Anything else (e.g. `''`) draws a straight line._
 
 And again the result:
 
 ![Avicii TIM data visualisation Path Custom](sample_dataviz/example_path_custom1.png)
 
-This setup nicely shows both the straight path and the bezier curves that are generated.
+This setup nicely shows both the straight path and the Bezier curves that are generated.
 
 Here's another example that plots the same line several times with different colours and widths:
 
 ```python
 viz_buddy.show_grid = False
-viz_buddy.set_path_options(
-    colors=['#E6E6E6', '#F2C641', '#E52133', '#A40454', '#02388F', '#ffffff'],
-    styles=['-', '-', '-', '-', '-', '-'],
-    widths=[38,30,22,14,8,2],
-    types=['bezier', 'bezier', 'bezier', 'bezier', 'bezier', 'bezier'],
-    length=99,
-    dot_colours='none',
-)
+
+viz_buddy.path_colors = ['#E6E6E6', '#F2C641', '#E52133', '#A40454', '#02388viz_buddy.path_F', '#ffffff']
+viz_buddy.path_styles = ['-', '-', '-', '-', '-', '-']
+viz_buddy.path_widths = [38,30,22,14,8,2]
+viz_buddy.path_types = ['bezier', 'bezier', 'bezier', 'bezier', 'bezier', 'bezier']
+viz_buddy.path_length = 99
+viz_buddy.path_dot_colours = 'none'
     
 viz_buddy.plot_path()
 ```
@@ -164,9 +167,43 @@ And the image:
 
 No real purpose for this one, but it's good to know your options :)
 
+There are more options to modify the outcome:
+
+- Change the figsize (and with it the aspect ratio)
+- Modify path capstyle and joinstyle
+- Add a background marker
+
+. Below is a code example that uses multiple settings:
+
+``````python
+viz_buddy.figsize = [7,7]
+
+viz_buddy.path_colors = ['#000000']
+viz_buddy.path_styles = ['-']
+viz_buddy.path_widths = [6.2]
+viz_buddy.path_types = ['bezier']
+viz_buddy.path_dot_colors = 'none'
+
+viz_buddy.path_capstyle = 'round'
+viz_buddy.path_joinstyle = 'bevel'
+
+viz_buddy.path_bg_shape_size = 40000
+viz_buddy.path_bg_shape_color = '#F2E8DC'
+viz_buddy.bg_shape_marker = 'v'
+viz_buddy.path_plot()
+``````
+
+And the result:
+
+![custom path plot with bg shape](sample_images/custom_path_with_bg_shape.png)
+
+
+
 ### 3.2 Web path
 
-This option draws a line from each data point to every other data point. For this one, I was inspired by a few students that took my course. Some ended up using this project to draw abstract, cubist-like graphics. Really interesting. This web path can be called using the `web_path()` module. It uses the same input as `plot_path()` but only uses the first argument of various input lists.
+This option draws a line from each data point to every other data point. For this one, I was inspired by a few students that took my course. Some ended up using this project to draw abstract, cubist-like graphics. Really interesting. 
+
+This web path can be generated using the `web_path()` module. It uses the same input as `plot_path()` but only uses the first argument of various input lists.
 
 Here's the same data, shown as a web plot:
 
@@ -175,20 +212,25 @@ Here's the same data, shown as a web plot:
 And the code snippet that makes this work:
 
 ```python
-viz_buddy.set_path_options(
-        colors=['#000000'],
-        styles=['-'],
-        widths=[1],
-        types=[''],
-        dot_colours='none',
-    )
+viz_buddy.path_colors = ['#000000']
+viz_buddy.path_styles = ['-']
+viz_buddy.path_widths = [1]
+viz_buddy.path_types = ['']
+viz_buddy.path_dot_colours = 'none'
 
 viz_buddy.web_plot()
 ```
 
-### 3.3 Edge path
+You have the option to use the parameter `line_width_value` when calling `web_plot` and set it to either  `'magnitude'` or `'score'`. This changes the width of lines according to values in the data.
 
-I have included an option to draw a different kind of path. As discussed, the path is normally drawn based on the order of the songs on an album (or index column in the dataframe). But if you want, you can change it to an edge shape. 
+### 3.3 Dataframe modifications
+
+I have included options to draw a different kind of path. 
+
+As discussed, the path is normally drawn based on the order of the songs on an album (or index column in the dataframe). But if you want, you can change it.
+
+#### 3.3.1 Edge shape
+
 This draws a line across the outermost points in the data set. 
 
 Here's an example of the data of Avicii's TIM: 
@@ -226,6 +268,18 @@ df_filtered = sort_df_by_starting_point(
   start_at='bad-reputation'
 )
 ```
+#### 3.3.2 Complete bezier path
+
+If you want to make a closed Bezier path, you might need to add a specific number of rows. I've added a function that helps you with that. Call this function before you start visualising to close down a Bezier plot.
+
+``````python
+from custom_path import copy_rows_to_df
+
+df = copy_rows_to_df(df)
+``````
+
+
+
 # To do
 
 Things I'll be working on are:

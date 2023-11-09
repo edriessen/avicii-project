@@ -1,5 +1,23 @@
 import pandas as pd
 
+
+def copy_rows_to_df(df):
+    index = 0
+    while (len(df) -4) % 3 != 0:
+        df = append_rows_to_df_by_index(df=df, index=0)
+        index += 1
+
+    return df
+
+
+def append_rows_to_df_by_index(df, index):
+    row = df.loc[index].copy()
+    row['index'] = len(df)+1
+    df = df.append(row).sort_values(by='index')
+    df = df.reset_index(level=0, drop=True)
+    return df
+
+
 def find_next_row(df, current_row, n_iter, active_titles):
     current_score = current_row['score']
     current_magnitude = current_row['magnitude']

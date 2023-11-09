@@ -195,7 +195,9 @@ viz_buddy.path_plot()
 
 And the result:
 
-![custom path plot with bg shape](sample_images/custom_path_with_bg_shape.png)
+![custom path plot with bg shape](sample_dataviz/example_custom_path_with_bg_shape.png)
+
+
 
 
 

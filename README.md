@@ -4,8 +4,6 @@ You can use this project to analyse text for sentiment using Google Natural Lang
 
 I personally use the visuals to make my own t-shirts of musics that I like.  [Read the origin story](http://www.edriessen.com/projects/the-avicii-project/) to find out why I created this project and why I associate it with Avicii.
 
-*Like this project? [Say thanks by buying me a coffee](https://ko-fi.com/edriessen) :)*
-
 # Creating a dataviz of the lyrics of your favourite artist
 
 Good to see that you want to give my repository a try. The process is split into three parts:
@@ -281,8 +279,9 @@ from custom_path import copy_rows_to_df
 
 df = copy_rows_to_df(df)
 ``````
+## Support
 
-
+Do you like this repo? You can help me spend more time on git repos by buying me a coffee or some data art from my store. [Find out how](https://www.edriessen.com/support/).
 
 # To do
 
